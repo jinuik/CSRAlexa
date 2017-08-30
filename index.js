@@ -47,6 +47,7 @@ alexaApp.launch(function(request, response) {
   request.getSession().set();
 //  response.say("Welcome to ShowCase App. I am Hella, a Brillio AI Bot on Alexa Echo Dot.");
      response.say("Welcome to Showcase Sales Experience by Ford Direct on Echo Dot. How can I help you? ");
+    response.say("Welcome to Brillio CSR Experiences. How can I help you? ");
    // socketFunction('dashboard')
  // response.shouldEndSession(false);
   response.shouldEndSession(false);
@@ -119,16 +120,30 @@ alexaApp.intent("appointments", {
 */
 
 
-alexaApp.intent("sales", {
+alexaApp.intent("map", {
     "utterances": [
-      "What is the sales report looking like?", "What is the sales report?", "How is the sales report?"
+      "Please show me the Brillio CSR Map", "Please show the map", "show me CSR map"
     ]
   },
   function(request, response) {
     var session = request.getSession();
         socketFunction('analytics')
     console.log('hitting sales')
-    response.say(" Sales is 33%, which is pretty good.");
+    response.say(" Here you can view the CSR Map.");
+    response.shouldEndSession(false);
+  }
+);
+
+alexaApp.intent("social", {
+    "utterances": [
+      "Tell me about social responsibility at brillio"
+    ]
+  },
+  function(request, response) {
+    var session = request.getSession();
+        socketFunction('analytics')
+    console.log('hitting sales')
+    response.say("At Brillio, “Bringing Smiles” is the theme of our global corporate social responsibility initiative, and it takes many forms, from fostering career development and STEM skills with underserved young minds in India and the United States.");
     response.shouldEndSession(false);
   }
 );
@@ -240,7 +255,7 @@ alexaApp.intent("twitter", {
     var session = request.getSession();
         socketFunction('twitter')
     console.log('hitting twitter')
-    response.say("Here you go, recents tweets at forddirect handle");
+    response.say("Here you go, recents tweets at Brillio");
     response.shouldEndSession(false);
   }
 );
