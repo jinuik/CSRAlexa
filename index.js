@@ -141,7 +141,7 @@ alexaApp.intent("reviews", {
   },
   function(request, response) {
     var session = request.getSession();
-        socketFunction('analytics')
+        socketFunction('inventory')
     console.log('hitting sales')
     response.say("At Brillio, “Bringing Smiles” is the theme of our global corporate social responsibility initiative, and it takes many forms, from fostering career development and STEM skills with underserved young minds in India and the United States.");
     response.shouldEndSession(false);
