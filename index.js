@@ -88,7 +88,7 @@ alexaApp.intent("opendash", {
 );
 
 
-alexaApp.intent("inventory", {
+/*alexaApp.intent("inventory", {
     "utterances": [
       "What is my Inventory Count", "Can you tell me inventory count", "Please tell me inventory count"
     ]
@@ -101,7 +101,7 @@ alexaApp.intent("inventory", {
     response.say("Here is the inventory count. You have 122 Cars, 52 Cross Overs and SUV, 34 Trucks, 45 Commercial Trucks, 142 Certified Pre Owned and 98 Pre Ownsed Vehciles");
     response.shouldEndSession(false);
   }
-);
+);*/
 
 /*
 alexaApp.intent("appointments", {
@@ -120,7 +120,7 @@ alexaApp.intent("appointments", {
 */
 
 
-alexaApp.intent("map", {
+alexaApp.intent("inventory", {
     "utterances": [
       "Please show me the Brillio CSR Map", "Please show the map", "show me CSR map"
     ]
@@ -134,7 +134,7 @@ alexaApp.intent("map", {
   }
 );
 
-alexaApp.intent("social", {
+alexaApp.intent("reviews", {
     "utterances": [
       "Tell me about social responsibility at brillio"
     ]
@@ -232,7 +232,7 @@ alexaApp.intent("credit", {
   }
 );
 
-alexaApp.intent("reviews", {
+/*alexaApp.intent("reviews", {
     "utterances": [
       "What are customers saying about us?", "Show me my dealership reviews", "Show me my reviews"
     ]
@@ -244,7 +244,7 @@ alexaApp.intent("reviews", {
     response.say("Glad to let you know that, overall dealership rating is 5");
     response.shouldEndSession(false);
   }
-);
+);*/
 
 alexaApp.intent("twitter", {
     "utterances": [
