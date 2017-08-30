@@ -15,7 +15,11 @@ io.on('connection', function(socket){
 });
 
 app.use('/', express.static(__dirname + ''));
-
+app.get('/sf', function(req,res){
+    socketFunction('hi');
+    res.send('done')
+    
+});
 // ALWAYS setup the alexa app and attach it to express before anything else.
 var alexaApp = new alexa.app("test");
 
@@ -37,152 +41,66 @@ alexaApp.express({
 // from here on you can setup any other express routes or middlewares as normal
 app.set("view engine", "ejs");
 
-/*alexaApp.launch(function(request, response) {
-  request.getSession();
-  response.say("Welcome to Brillio Imagine IZone. I am Brillio AI Bot on Echo Dot");
-  response.shouldEndSession(false);
-});*/
 
 
 alexaApp.launch(function(request, response) {
   request.getSession().set();
 //  response.say("Welcome to ShowCase App. I am Hella, a Brillio AI Bot on Alexa Echo Dot.");
-     response.say("Welcome to Brillo CSR. How can I help you? ");
-  response.shouldEndSession(false);
+     response.say("Welcome to Showcase Sales Experience by Ford Direct on Echo Dot. How can I help you? ");
+   // socketFunction('dashboard')
+ // response.shouldEndSession(false);
   response.shouldEndSession(false);
 });
 
-/*alexaApp.intent("tellme", function(request, response) {
-  var session = request.getSession();
-  response.say("The number is " + session.get("number"));
-  // clear only the 'number' attribute from the session
-  session.clear("number");
-});
 
-// the session variables can be entirely cleared, or cleared by key
-alexaApp.intent("clear", function(request, response) {
-  var session = request.getSession();
-  session.clear(); // or: session.clear("key") to clear a single value
-  response.say("Session cleared!");
-});*/
-
-
-
-/*alexaApp.dictionary = { "names": ["matt", "joe", "bob", "bill", "mary", "jane", "dawn"] };
-
-alexaApp.intent("nameIntent", {
-    "slots": { "NAME": "LITERAL" },
-    "utterances": [
-      "my name is {names|NAME}", "set my name to {names|NAME}"
-    ]
-  },
-  function(request, response) {
-    console.log(request.data.request.intent);
-    console.log('hitting this page')
-    response.say("My name is Jinu");
-  }
-);*/
-
-/*alexaApp.intent("interactIntent", {
+alexaApp.dictionary = { "names": ["analytics","twitter","tweets","calendar","reviews","creditapp","rating","review","ratings"]}
+alexaApp.intent("interactIntent", {
     "slots": { "COMMANDNAME": "LITERAL" },
     "utterances": [
-      "open {command|COMMANDNAME}", "can you open {command|COMMANDNAME}"
+      "bring up {command|COMMANDNAME}", "can you open {command|COMMANDNAME}","can you show me {command|COMMANDNAME}"
     ]
   },
   function(request, response) {
    // console.log(request.data.request.intent);
      socketFunction(request.data.request.intent)
     console.log('hitting this page')
-    response.say("Ok Jinu.");
-  }
-);*/
-
-
-/*alexaApp.intent("welcome", {
-    "utterances": [
-      "Hi", "Hello", "Hello hella", "Hi hella"
-    ]
-  },
-  function(request, response) {
-    var session = request.getSession();
-    console.log('hitting welcome')
-    response.say("Hi Stephen, How can I help you? ");
-    response.shouldEndSession(false);
-  }
-);*/
-
-
-alexaApp.intent("dashboard", {
-    "utterances": [
-      "Open Dashboard"
-    ]
-  },
-  function(request, response) {
-    var session = request.getSession();
-    console.log('hitting inventory')
-    //response.say("Opening Inventory Dashboard, You have 130 Cars, 157 Cross Overs and SUV, 121 Black Label, 70 Certified Pre Owned Vehicles");
-    response.say("Opening Brillio CSR Dashboard");
-    response.shouldEndSession(false);
-  }
-);
-
-alexaApp.intent("social", {
-    "utterances": [
-      "“Tell me about social responsibility at brillio?”"
-    ]
-  },
-  function(request, response) {
-    var session = request.getSession();
-    console.log('hitting inventory')
-    //response.say("Opening Inventory Dashboard, You have 130 Cars, 157 Cross Overs and SUV, 121 Black Label, 70 Certified Pre Owned Vehicles");
-    response.say("Here is the result");
-    response.shouldEndSession(false);
+   response.shouldEndSession(false);
+    response.say("Ok.");
   }
 );
 
 
-alexaApp.intent("twitter", {
-    "utterances": [
-      "Show me what is going on in Twitter?"
-    ]
-  },
-  function(request, response) {
-    var session = request.getSession();
-    console.log('hitting inventory')
-    //response.say("Opening Inventory Dashboard, You have 130 Cars, 157 Cross Overs and SUV, 121 Black Label, 70 Certified Pre Owned Vehicles");
-    response.say("Here is the twitter");
-    response.shouldEndSession(false);
-  }
-);
 
-alexaApp.intent("map", {
+
+alexaApp.intent("opendash", {
     "utterances": [
-      "Please show me the Brillio CSR Map"
+      "open dashboard", "Open CSR Dashboard"
     ]
   },
   function(request, response) {
-    var session = request.getSession();
-    console.log('hitting inventory')
-    //response.say("Opening Inventory Dashboard, You have 130 Cars, 157 Cross Overs and SUV, 121 Black Label, 70 Certified Pre Owned Vehicles");
-    response.say("Here is the map");
-    response.shouldEndSession(false);
+    console.log('hitting opendash')
+    socketFunction('dashboard')
+    
+    response.say("opening dashboard");
+      response.shouldEndSession(false);
   }
 );
 
 
-/*alexaApp.intent("inventory", {
+alexaApp.intent("inventory", {
     "utterances": [
-      "What are the Inventory Count", "Can you tell me inventory count", "Please tell me inventory count"
+      "What is my Inventory Count", "Can you tell me inventory count", "Please tell me inventory count"
     ]
   },
   function(request, response) {
     var session = request.getSession();
     console.log('hitting inventory')
+        socketFunction('inventory')
     //response.say("Opening Inventory Dashboard, You have 130 Cars, 157 Cross Overs and SUV, 121 Black Label, 70 Certified Pre Owned Vehicles");
-    response.say("Here is the inventory count. You have 130 Cars, 157 Cross Overs and SUV, 121 Black Label and 70 Certified Pre Owned Vehicles");
+    response.say("Here is the inventory count. You have 122 Cars, 52 Cross Overs and SUV, 34 Trucks, 45 Commercial Trucks, 142 Certified Pre Owned and 98 Pre Ownsed Vehciles");
     response.shouldEndSession(false);
   }
-);*/
+);
 
 /*
 alexaApp.intent("appointments", {
@@ -201,6 +119,132 @@ alexaApp.intent("appointments", {
 */
 
 
+alexaApp.intent("sales", {
+    "utterances": [
+      "What is the sales report looking like?", "What is the sales report?", "How is the sales report?"
+    ]
+  },
+  function(request, response) {
+    var session = request.getSession();
+        socketFunction('analytics')
+    console.log('hitting sales')
+    response.say(" Sales is 33%, which is pretty good.");
+    response.shouldEndSession(false);
+  }
+);
+
+alexaApp.intent("soldyes", {
+    "utterances": [
+      "Can you highlight how many cars have we sold yesterday", " How many cars we have sold yesterday", "how many cars sold yesterday"
+    ]
+  },
+  function(request, response) {
+    var session = request.getSession();
+        socketFunction('analytics')
+    console.log('hitting sales')
+    response.say(" The number of cars sold yesterday are 2.");
+    response.shouldEndSession(false);
+  }
+);
+
+alexaApp.intent("soldweek", {
+    "utterances": [
+      "Can you tell how many cars have we sold this week", "How many cars have we sold for this week? ", "how many cars sold this week"
+    ]
+  },
+  function(request, response) {
+    var session = request.getSession();
+        socketFunction('analytics')
+    console.log('hitting sales')
+    response.say(" The number of cars sold in this week are 10.");
+    response.shouldEndSession(false);
+  }
+);
+
+alexaApp.intent("soldmonth", {
+    "utterances": [
+      "Can you tell how many cars have we sold this month", "How many cars have we sold for this month? ", "how many cars sold this month"
+    ]
+  },
+  function(request, response) {
+    var session = request.getSession();
+    console.log('hitting sales')
+        socketFunction('analytics')
+    response.say(" The number of cars sold in this month are 30.");
+    response.shouldEndSession(false);
+  }
+);
+
+alexaApp.intent("appointments", {
+    "utterances": [
+      "Tell me about Today's appoinments", "What are my appoinments for today", "What are the appoinments today"
+    ]
+  },
+  function(request, response) {
+    var session = request.getSession();
+    console.log('hitting sales')
+        socketFunction('calendar')
+    response.say("You have a total of 5 appointments for the day. The first one is at 9:30AM 20 mins from now, with Mr. Nathan Jones, he is here to test drive Ford Mustang. The next is at 11:00AM with Mr. Bill Harris, 1:15PM with Mr. Glenn Johnson, 3:45PM with Mr. Mike Philips and 4:45PM with Mr. Jim Spacy");
+    response.shouldEndSession(false);
+  }
+);
+
+alexaApp.intent("ford", {
+    "utterances": [
+      "Highlight the number of F one fiftys", "How many F one fiftys are there?", "What are the number of F one fiftys we have"
+    ]
+  },
+  function(request, response) {
+    var session = request.getSession();
+        socketFunction('report')
+    console.log('hitting sales')
+    response.say("Ok, The total number of F one fiftys sold are highlighted.");
+    response.shouldEndSession(false);
+  }
+);
+
+alexaApp.intent("credit", {
+    "utterances": [
+      "How many credit applications are pending for processing?", "What are the number of credit applications pending?", "What number of credit applications are pending for processing?"
+    ]
+  },
+  function(request, response) {
+    var session = request.getSession();
+        socketFunction('creditapp')
+    console.log('hitting sales')
+    response.say("The number of pending credit applications for processing are 12.");
+    response.shouldEndSession(false);
+  }
+);
+
+alexaApp.intent("reviews", {
+    "utterances": [
+      "What are customers saying about us?", "Show me my dealership reviews", "Show me my reviews"
+    ]
+  },
+  function(request, response) {
+    var session = request.getSession();
+        socketFunction('reviews')
+    console.log('hitting reviews')
+    response.say("Glad to let you know that, overall dealership rating is 5");
+    response.shouldEndSession(false);
+  }
+);
+
+alexaApp.intent("twitter", {
+    "utterances": [
+      "Show me what is going on in twitter", "Show me twitter", "Go to twitter"
+    ]
+  },
+  function(request, response) {
+    var session = request.getSession();
+        socketFunction('twitter')
+    console.log('hitting twitter')
+    response.say("Here you go, recents tweets at forddirect handle");
+    response.shouldEndSession(false);
+  }
+);
+
 
 
 alexaApp.intent("bye", {
@@ -210,6 +254,7 @@ alexaApp.intent("bye", {
   },
   function(request, response) {
     var session = request.getSession();
+        socketFunction('exit')
     console.log('hitting bye')
     response.say("Bye, Have a great day");
     response.shouldEndSession(true);
@@ -244,7 +289,16 @@ alexaApp.intent("bye", {
 );*/
 
 
-
+var socketFunction = function(commandname) {
+//io.on('connection', function (socket) {
+   try{ 
+  S.emit('alexacommand',  commandname );  
+   }catch(e)
+       {
+           
+       }
+//});
+}
 
 
 alexaApp.intent("defaultintent", {
@@ -263,18 +317,13 @@ alexaApp.intent("defaultintent", {
 alexaApp.messages.NO_INTENT_FOUND = "Sorry, something bad happened";
 
 alexaApp.error = function(exception, request, response) {
-    console.log('Coming to error')
+    console.log('Coming to error', exception)
     var session = request.getSession();
-  response.say("Sorry, something bad happened");
-    response.shouldEndSession(true);
+  response.say("hmm");
+    response.shouldEndSession(false);
 };
 
-var socketFunction = function(commandname) {
-//io.on('connection', function (socket) {
-    
-  S.emit('alexacommand',  commandname );  
-//});
-}
+
 
 server.listen(PORT);
 console.log("Listening on port " + PORT + ", try http://localhost:" + PORT + "/test");
