@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Alexa enabled Tableau</title>
+		<script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.js"></script>
+        <script type="text/javascript">
+            var viz, sheet, table,  myjsonData;
+
+            function initViz() {
+		var containerDiv = document.getElementById("vizContainer"),
+                    url = "http://public.tableau.com/views/RegionalSampleWorkbook/Stocks",
+                    options = {
+                        hideTabs: true,
+                        hideToolbar: true,
+                        onFirstInteractive: function () {
+                            document.getElementById('getData').disabled = false; // Enable our button
+                        }
+                    };
+                viz = new tableau.Viz(containerDiv, url, options);
+            }
+
+            function getUnderlyingData(){
+               // sheet = viz.getWorkbook().getActiveSheet().getWorksheets().get("Regional Sample Workbook");
+		 // If the active sheet is not a dashboard, then you can just enter:
+		 sheet = viz.getWorkbook().getActiveSheet();
+                options = {
+                    maxRows: 10, // Max rows to return. Use 0 to return all rows
+                    ignoreAliases: false,
+                    ignoreSelection: true,
+                    includeAllColumns: false
+                };
+
+                sheet.getUnderlyingDataAsync(options).then(function(t){
+                       table = t;
+			var tgt = document.getElementById("dataTarget");
+                    myjsonData = table.getData();
+			tgt.innerHTML = "<h4>Underlying Data:</h4><p>" + JSON.stringify(myjsonData) + "</p>";
+                });
+            }
+        </script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        
+        <script>
+    $(document).ready(function(){
+    /*$(".stage1").hide();*/
+       // $("#barChart").hide();$("#lineChart").hide();
+    });
+  var socket = io();
+//    socket.on('connection', function(socket){
+//  console.log('a user connected');
+//  socket.on('disconnect', function(){
+//    console.log('user disconnected');
+//  });
+socket.on('alexacommand', function(msg){
+//    io.emit('alexacommand', msg);
+     $(".stage1").fadeIn(1000);
+    $(".stage2").hide(1000);
+    console.log(msg);
+  });
+        </script>
+        
+        
+        
+        <script>
+
+/*var obj = JSON.parse(table);
+document.getElementById("demo").innerHTML = obj.value + ", " + obj.formattedvalue;*/
+            
+var myJSON = '{ "name":"John", "age":31, "city":"New York" }';
+var myObj3 = JSON.parse(myJSON);
+document.getElementById("demo").innerHTML = myObj3.name;
+
+</script>
+            
+    </head>
+
+    <body onload="initViz();">
+        
+        <div class="stage2"  align="center">
+                <h3 >Welcome To Brillio's Alexa enabled Tableaue Demo</h3>
+                You say to Echo Dot Device ::  <p>"1. Alexa, Ask Tableau. Open Dashboard!"</p>
+            <p id="demo"></p>
+
+        </div> 
+        
+        
+        
+        <div class="stage1">
+        <div class="page-header">
+             
+            <p>Click the "Get Data" button to get underlying data for the viz.</p>
+            <button id="getData" onclick="getUnderlyingData()" class="btn" disabled>Get Data</button>
+        </div>
+        <div id="vizContainer" style="width:600px; height:600px;"></div>
+        <div id="dataTarget"></div>
+        </div>
+    </body>
+</html>
