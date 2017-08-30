@@ -1,7 +1,7 @@
  $(document).ready(function(){
    
  //  $('.dashboardall').hide();  hideall()
-       $('.bigmessage').hide();
+       $('.bigmessage').show();
 //      $('.bigmessage').fadeOut('100');
    
     });
