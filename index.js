@@ -46,7 +46,7 @@ app.set("view engine", "ejs");
 alexaApp.launch(function(request, response) {
   request.getSession().set();
 //  response.say("Welcome to ShowCase App. I am Hella, a Brillio AI Bot on Alexa Echo Dot.");
-     response.say("Welcome to Showcase Sales Experience by Ford Direct on Echo Dot. How can I help you? ");
+   //  response.say("Welcome to Showcase Sales Experience by Ford Direct on Echo Dot. How can I help you? ");
     response.say("Welcome to Brillio CSR Experiences. How can I help you? ");
    // socketFunction('dashboard')
  // response.shouldEndSession(false);
@@ -120,7 +120,7 @@ alexaApp.intent("appointments", {
 */
 
 
-alexaApp.intent("inventory", {
+alexaApp.intent("map", {
     "utterances": [
       "Please show me the Brillio CSR Map", "Please show the map", "show me CSR map"
     ]
@@ -148,7 +148,7 @@ alexaApp.intent("reviews", {
   }
 );
 
-alexaApp.intent("soldyes", {
+/*alexaApp.intent("soldyes", {
     "utterances": [
       "Can you highlight how many cars have we sold yesterday", " How many cars we have sold yesterday", "how many cars sold yesterday"
     ]
@@ -160,9 +160,9 @@ alexaApp.intent("soldyes", {
     response.say(" The number of cars sold yesterday are 2.");
     response.shouldEndSession(false);
   }
-);
+);*/
 
-alexaApp.intent("soldweek", {
+/*alexaApp.intent("soldweek", {
     "utterances": [
       "Can you tell how many cars have we sold this week", "How many cars have we sold for this week? ", "how many cars sold this week"
     ]
@@ -174,8 +174,9 @@ alexaApp.intent("soldweek", {
     response.say(" The number of cars sold in this week are 10.");
     response.shouldEndSession(false);
   }
-);
+);*/
 
+/*
 alexaApp.intent("soldmonth", {
     "utterances": [
       "Can you tell how many cars have we sold this month", "How many cars have we sold for this month? ", "how many cars sold this month"
@@ -189,8 +190,9 @@ alexaApp.intent("soldmonth", {
     response.shouldEndSession(false);
   }
 );
+*/
 
-alexaApp.intent("appointments", {
+/*alexaApp.intent("appointments", {
     "utterances": [
       "Tell me about Today's appoinments", "What are my appoinments for today", "What are the appoinments today"
     ]
@@ -202,8 +204,9 @@ alexaApp.intent("appointments", {
     response.say("You have a total of 5 appointments for the day. The first one is at 9:30AM 20 mins from now, with Mr. Nathan Jones, he is here to test drive Ford Mustang. The next is at 11:00AM with Mr. Bill Harris, 1:15PM with Mr. Glenn Johnson, 3:45PM with Mr. Mike Philips and 4:45PM with Mr. Jim Spacy");
     response.shouldEndSession(false);
   }
-);
+);*/
 
+/*
 alexaApp.intent("ford", {
     "utterances": [
       "Highlight the number of F one fiftys", "How many F one fiftys are there?", "What are the number of F one fiftys we have"
@@ -217,8 +220,9 @@ alexaApp.intent("ford", {
     response.shouldEndSession(false);
   }
 );
+*/
 
-alexaApp.intent("credit", {
+/*alexaApp.intent("credit", {
     "utterances": [
       "How many credit applications are pending for processing?", "What are the number of credit applications pending?", "What number of credit applications are pending for processing?"
     ]
@@ -230,7 +234,7 @@ alexaApp.intent("credit", {
     response.say("The number of pending credit applications for processing are 12.");
     response.shouldEndSession(false);
   }
-);
+);*/
 
 /*alexaApp.intent("reviews", {
     "utterances": [
